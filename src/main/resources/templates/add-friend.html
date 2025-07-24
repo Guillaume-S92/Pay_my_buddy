@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ajouter un ami</title>
+    <link rel="stylesheet" th:href="@{/style.css}" />
+    <style>
+        .form-container { max-width:400px; margin:60px auto; border:1px solid #eee; padding:30px; border-radius:10px; background:#fff; }
+        .form-title { font-size:2rem; margin-bottom:20px; text-align:center; }
+        .error { color:red; }
+        .msg { color:green; }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <div class="form-title">Ajouter un ami</div>
+    <form th:action="@{/friends/add}" method="post">
+        <!-- Pour le prototype, tu peux forcer userId="1", ou le passer en hidden input si tu gères l’auth plus tard -->
+        <input type="hidden" name="userId" value="1" />
+        <label>Email de l’ami :</label>
+        <input type="email" name="email" required style="width:100%;margin-bottom:10px;" />
+        <button type="submit" style="width:100%;">Ajouter</button>
+    </form>
+    <div class="error" th:if="${error}" th:text="${error}"></div>
+    <div class="msg" th:if="${msg}" th:text="${msg}"></div>
+    <a class="link" href="/">Accueil</a>
+</div>
+</body>
+</html>

@@ -14,6 +14,13 @@ public class UserConnectionId implements Serializable {
         this.connection = connection;
     }
 
+    // Getters et setters
+    public Integer getUser() { return user; }
+    public void setUser(Integer user) { this.user = user; }
+
+    public Integer getConnection() { return connection; }
+    public void setConnection(Integer connection) { this.connection = connection; }
+
     // equals() et hashCode()
     @Override
     public boolean equals(Object o) {

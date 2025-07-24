@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Nouvelle transaction</title>
+    <link rel="stylesheet" th:href="@{/style.css}" />
+</head>
+<body>
+<h2>Nouvelle transaction</h2>
+<form th:action="@{/transactions}" method="post" th:object="${transaction}">
+    <label>Expéditeur :
+        <select name="senderId" required>
+            <option th:each="u : ${users}" th:value="${u.id}" th:text="${u.username}"></option>
+        </select>
+    </label>
+    <br>
+    <label>Destinataire :
+        <select name="receiverId" required>
+            <option th:each="u : ${users}" th:value="${u.id}" th:text="${u.username}"></option>
+        </select>
+    </label>
+    <br>
+    <label>Montant : <input type="number" step="0.01" th:field="*{amount}" required /></label>
+    <br>
+    <label>Description : <input type="text" th:field="*{description}" /></label>
+    <br>
+    <button type="submit">Valider</button>
+</form>
+<a href="/transactions">Retour</a>
+</body>
+</html>

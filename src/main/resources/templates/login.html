@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Connexion - PayMyBuddy</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <style>
+        .form-container { max-width:350px; margin:80px auto; border:1px solid #eee; padding:30px; border-radius:10px; background:#fff; }
+        .form-title { font-size:2rem; margin-bottom:20px; text-align:center; }
+        .error { color:red; }
+        .link { margin-top:12px; display:block; text-align:center; }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <div class="form-title">Connexion</div>
+    <form th:action="@{/login}" method="post">
+        <label>Email</label>
+        <input type="email" name="email" required style="width:100%;margin-bottom:10px;">
+        <label>Mot de passe</label>
+        <input type="password" name="password" required style="width:100%;margin-bottom:10px;">
+        <button type="submit" style="width:100%;">Se connecter</button>
+    </form>
+    <div class="error" th:if="${error}" th:text="${error}"></div>
+    <a class="link" href="/register">Pas encore de compte ? Créer un compte</a>
+</div>
+</body>
+</html>

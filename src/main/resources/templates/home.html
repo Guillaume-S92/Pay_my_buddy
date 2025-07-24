@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>PayMyBuddy</title>
+    <link rel="stylesheet" th:href="@{/style.css}" />
+    <style>
+        .nav { background:#004aad; padding:10px 0; }
+        .nav a { color:white; margin:0 18px; text-decoration:none; font-weight:bold; }
+    </style>
+</head>
+<body>
+<div class="nav">
+    <a href="/">Accueil</a>
+    <a href="/users">Utilisateurs</a>
+    <a href="/transactions">Transactions</a>
+    <a href="/friends">Mes amis</a>
+    <a href="/friends/add">Ajouter un ami</a>
+    <a href="/login">Se connecter</a>
+</div>
+<div style="padding:20px;">
+    <h1>PayMyBuddy</h1>
+    <p>Bienvenue sur l'app de transfert d’argent simple et rapide entre amis !</p>
+</div>
+</body>
+</html>
