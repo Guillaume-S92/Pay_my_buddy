@@ -4,7 +4,7 @@ import com.paymybuddy.model.User;
 import com.paymybuddy.model.UserConnection;
 import com.paymybuddy.service.UserConnectionService;
 import com.paymybuddy.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.paymybuddy.util.AuthUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,16 +15,18 @@ public class FriendWebController {
 
     private final UserService userService;
     private final UserConnectionService userConnectionService;
+    private final AuthUtil authUtil;
 
-    @Autowired
-    public FriendWebController(UserService userService, UserConnectionService userConnectionService) {
+    public FriendWebController(UserService userService, UserConnectionService userConnectionService, AuthUtil authUtil) {
         this.userService = userService;
         this.userConnectionService = userConnectionService;
+        this.authUtil = authUtil;
     }
 
     @GetMapping
     public String friendPage(Model model) {
-        model.addAttribute("users", userService.getAllUsers());
+        User currentUser = authUtil.getCurrentUser();
+        model.addAttribute("friends", userConnectionService.getConnectionsByUser(currentUser.getId()));
         return "friends";
     }
 
@@ -37,26 +39,20 @@ public class FriendWebController {
     }
 
     @PostMapping("/add")
-    public String addFriend(@RequestParam String userId, @RequestParam String email, Model model) {
-        // userId = l’ID de l’utilisateur courant (pour le prototype, tu peux le forcer à 1)
-        User user = userService.getUserById(Integer.parseInt(userId)).orElse(null);
+    public String addFriend(@RequestParam String email, Model model) {
+        User currentUser = authUtil.getCurrentUser();
         User friend = userService.getUserByEmail(email).orElse(null);
 
-        if (user == null) {
-            model.addAttribute("error", "Utilisateur non trouvé.");
-            return "add-friend";
-        }
         if (friend == null) {
             model.addAttribute("error", "Aucun utilisateur trouvé avec cet email.");
             return "add-friend";
         }
-        if (user.getId().equals(friend.getId())) {
+        if (currentUser.getId().equals(friend.getId())) {
             model.addAttribute("error", "Impossible de s’ajouter soi-même.");
             return "add-friend";
         }
-
-        // Créer la connexion d’amitié
-        userConnectionService.createConnection(new UserConnection(user, friend));
+        // Optionnel : vérifie si la connexion existe déjà !
+        userConnectionService.createConnection(new UserConnection(currentUser, friend));
         model.addAttribute("msg", "Ami ajouté !");
         return "add-friend";
     }

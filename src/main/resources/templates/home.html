@@ -10,16 +10,18 @@
 </head>
 <body>
 <div class="nav">
-    <a href="/">Accueil</a>
-    <a href="/users">Utilisateurs</a>
-    <a href="/transactions">Transactions</a>
-    <a href="/friends">Mes amis</a>
-    <a href="/friends/add">Ajouter un ami</a>
-    <a href="/login">Se connecter</a>
+    <a href="/" th:if="${user != null}">Accueil</a>
+    <a href="/transactions" th:if="${user != null}">Transactions</a>
+    <a href="/friends" th:if="${user != null}">Mes amis</a>
+    <a href="/friends/add" th:if="${user != null}">Ajouter un ami</a>
+    <a href="/logout" th:if="${user != null}">Se déconnecter</a>
+    <a href="/login" th:if="${user == null}">Se connecter</a>
+    <a href="/register" th:if="${user == null}">Créer un compte</a>
 </div>
 <div style="padding:20px;">
     <h1>PayMyBuddy</h1>
-    <p>Bienvenue sur l'app de transfert d’argent simple et rapide entre amis !</p>
+    <p th:if="${user != null}">Bienvenue, <b th:text="${user.username}">User</b> !</p>
+    <p th:if="${user == null}">Connectez-vous pour accéder à votre espace personnel.</p>
 </div>
 </body>
 </html>

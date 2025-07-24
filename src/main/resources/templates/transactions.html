@@ -5,19 +5,17 @@
     <link rel="stylesheet" th:href="@{/style.css}" />
 </head>
 <body>
-<h2>Transactions</h2>
+<h2>Mes transactions</h2>
 <a href="/transactions/new">Nouvelle transaction</a>
 <table>
     <tr>
         <th>ID</th>
-        <th>Expéditeur</th>
         <th>Destinataire</th>
         <th>Montant</th>
         <th>Description</th>
     </tr>
     <tr th:each="t : ${transactions}">
         <td th:text="${t.id}"></td>
-        <td th:text="${t.sender.username}"></td>
         <td th:text="${t.receiver.username}"></td>
         <td th:text="${t.amount}"></td>
         <td th:text="${t.description}"></td>

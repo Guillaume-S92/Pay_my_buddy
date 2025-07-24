@@ -7,12 +7,6 @@
 <body>
 <h2>Nouvelle transaction</h2>
 <form th:action="@{/transactions}" method="post" th:object="${transaction}">
-    <label>Expéditeur :
-        <select name="senderId" required>
-            <option th:each="u : ${users}" th:value="${u.id}" th:text="${u.username}"></option>
-        </select>
-    </label>
-    <br>
     <label>Destinataire :
         <select name="receiverId" required>
             <option th:each="u : ${users}" th:value="${u.id}" th:text="${u.username}"></option>
@@ -23,6 +17,7 @@
     <br>
     <label>Description : <input type="text" th:field="*{description}" /></label>
     <br>
+    <div class="error" th:if="${error}" th:text="${error}"></div>
     <button type="submit">Valider</button>
 </form>
 <a href="/transactions">Retour</a>
