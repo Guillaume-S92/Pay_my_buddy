@@ -5,18 +5,28 @@
     <link rel="stylesheet" th:href="@{/style.css}" />
 </head>
 <body>
-<h2>Mes amis</h2>
-<table>
-    <tr>
-        <th>Nom d'utilisateur</th>
-        <th>Email</th>
-    </tr>
-    <tr th:each="friend : ${friends}">
-        <td th:text="${friend.connection.username}"></td>
-        <td th:text="${friend.connection.email}"></td>
-    </tr>
-</table>
-<a href="/friends/add">Ajouter un ami</a>
-<a href="/">Accueil</a>
+<div class="container">
+    <h2>Mes amis</h2>
+    <table>
+        <tr>
+            <th>Nom d'utilisateur</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="friend : ${friends}">
+            <td th:text="${friend.connection.username}"></td>
+            <td th:text="${friend.connection.email}"></td>
+            <td>
+                <form th:action="@{/friends/delete}" method="post" style="display:inline;">
+                    <input type="hidden" name="connectionId" th:value="${friend.connection.id}" />
+                    <button type="submit" class="btn" onclick="return confirm('Supprimer cet ami ?');">Supprimer</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+    <a class="btn" href="/friends/add">Ajouter un ami</a>
+    <a class="link" href="/">Accueil</a>
+</div>
 </body>
 </html>

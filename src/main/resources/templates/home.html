@@ -3,10 +3,6 @@
 <head>
     <title>PayMyBuddy</title>
     <link rel="stylesheet" th:href="@{/style.css}" />
-    <style>
-        .nav { background:#004aad; padding:10px 0; }
-        .nav a { color:white; margin:0 18px; text-decoration:none; font-weight:bold; }
-    </style>
 </head>
 <body>
 <div class="nav">
@@ -18,7 +14,7 @@
     <a href="/login" th:if="${user == null}">Se connecter</a>
     <a href="/register" th:if="${user == null}">Créer un compte</a>
 </div>
-<div style="padding:20px;">
+<div class="container">
     <h1>PayMyBuddy</h1>
     <p th:if="${user != null}">Bienvenue, <b th:text="${user.username}">User</b> !</p>
     <p th:if="${user == null}">Connectez-vous pour accéder à votre espace personnel.</p>

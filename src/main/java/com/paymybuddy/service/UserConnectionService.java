@@ -2,6 +2,7 @@ package com.paymybuddy.service;
 
 import com.paymybuddy.model.UserConnection;
 import com.paymybuddy.model.User;
+import com.paymybuddy.model.UserConnectionId;
 import com.paymybuddy.repository.UserConnectionRepository;
 import com.paymybuddy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,4 +36,10 @@ public class UserConnectionService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
         return userConnectionRepository.findByConnection(user);
     }
+
+    public void deleteConnection(Integer userId, Integer connectionId) {
+        UserConnectionId id = new UserConnectionId(userId, connectionId);
+        userConnectionRepository.deleteById(id);
+    }
+
 }

@@ -56,4 +56,12 @@ public class FriendWebController {
         model.addAttribute("msg", "Ami ajouté !");
         return "add-friend";
     }
+
+    @PostMapping("/delete")
+    public String deleteFriend(@RequestParam Integer connectionId) {
+        User currentUser = authUtil.getCurrentUser();
+        userConnectionService.deleteConnection(currentUser.getId(), connectionId);
+        return "redirect:/friends";
+    }
+
 }
