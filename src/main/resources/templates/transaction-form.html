@@ -6,7 +6,7 @@
 </head>
 <body>
 <div class="form-container">
-    <div class="form-title">Nouvelle transaction</div>
+    <h2>Nouvelle transaction</h2>
     <form th:action="@{/transactions}" method="post" th:object="${transaction}">
         <label>Destinataire</label>
         <select name="receiverId" required>

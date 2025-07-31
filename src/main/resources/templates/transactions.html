@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Liste des transactions</title>
+    <title>Mes transactions</title>
     <link rel="stylesheet" th:href="@{/style.css}" />
 </head>
 <body>
-<h2>Mes transactions</h2>
-<a href="/transactions/new">Nouvelle transaction</a>
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Destinataire</th>
-        <th>Montant</th>
-        <th>Description</th>
-    </tr>
-    <tr th:each="t : ${transactions}">
-        <td th:text="${t.id}"></td>
-        <td th:text="${t.receiver.username}"></td>
-        <td th:text="${t.amount}"></td>
-        <td th:text="${t.description}"></td>
-    </tr>
-</table>
-<a href="/">Accueil</a>
+<div class="transaction_container">
+    <h2>Mes transactions</h2>
+    <a class="btn" href="/transactions/new" style="margin-bottom:18px;max-width:200px;">Nouvelle transaction</a>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Destinataire</th>
+            <th>Montant</th>
+            <th>Description</th>
+        </tr>
+        <tr th:each="t : ${transactions}">
+            <td th:text="${t.id}"></td>
+            <td th:text="${t.receiver.username}"></td>
+            <td th:text="${t.amount}"></td>
+            <td th:text="${t.description}"></td>
+        </tr>
+    </table>
+    <a class="link" href="/">Accueil</a>
+</div>
 </body>
 </html>

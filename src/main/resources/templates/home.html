@@ -14,7 +14,7 @@
     <a href="/login" th:if="${user == null}">Se connecter</a>
     <a href="/register" th:if="${user == null}">Créer un compte</a>
 </div>
-<div class="container">
+<div class="home_container">
     <h1>PayMyBuddy</h1>
     <p th:if="${user != null}">Bienvenue, <b th:text="${user.username}">User</b> !</p>
     <p th:if="${user == null}">Connectez-vous pour accéder à votre espace personnel.</p>

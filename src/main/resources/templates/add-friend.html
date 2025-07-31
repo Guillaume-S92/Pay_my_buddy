@@ -6,14 +6,14 @@
 </head>
 <body>
 <div class="form-container">
-    <div class="form-title">Ajouter un ami</div>
+    <h2>Ajouter un ami</h2>
     <form th:action="@{/friends/add}" method="post">
         <label>Email de l’ami</label>
         <input type="email" name="email" required />
         <button type="submit">Ajouter</button>
     </form>
-    <div class="error" th:if="${error}" th:text="${error}"></div>
-    <div class="msg" th:if="${msg}" th:text="${msg}"></div>
+    <div class="error" th:if="${error != null and error != ''}" th:text="${error}"></div>
+    <div class="msg" th:if="${msg != null and msg != ''}" th:text="${msg}"></div>
     <a class="link" href="/">Accueil</a>
 </div>
 </body>
