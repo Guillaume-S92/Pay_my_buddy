@@ -28,7 +28,7 @@ public class TransactionService {
     @Transactional
     public Transaction createTransaction(Transaction transaction) {
 
-        // 1. Validation du montant
+        // Validation du montant
         BigDecimal amount = transaction.getAmount();
         if (amount == null) {
             throw new IllegalArgumentException("Le montant ne peut pas être nul.");
@@ -37,27 +37,25 @@ public class TransactionService {
             throw new IllegalArgumentException("Le montant doit être strictement positif.");
         }
 
-        // 2. Récupération du vrai sender en base
+        //  Récupération du vrai sender en base
         Integer senderId = transaction.getSender().getId();
         User sender = userRepository.findById(senderId)
                 .orElseThrow(() -> new RuntimeException("Expéditeur introuvable."));
 
-        // 3. Récupération du vrai receiver en base
+        //  Récupération du vrai receiver en base
         Integer receiverId = transaction.getReceiver().getId();
         User receiver = userRepository.findById(receiverId)
                 .orElseThrow(() -> new RuntimeException("Destinataire introuvable."));
 
-        // 4. Interdiction d'envoyer à soi-même
+        //  Interdiction d'envoyer à soi-même
         if (sender.getId().equals(receiver.getId())) {
             throw new IllegalArgumentException("Impossible d’envoyer de l’argent à soi-même.");
         }
 
-        // 5. On remplace dans l'objet transaction les versions 'données par le formulaire'
-        //    par les vraies entités persistées (gérées par JPA)
         transaction.setSender(sender);
         transaction.setReceiver(receiver);
 
-        // 6. Sauvegarde
+        //  Sauvegarde
         return transactionRepository.save(transaction);
         // Grâce à @Transactional :
         // - si une exception est levée à un moment dans cette méthode,
