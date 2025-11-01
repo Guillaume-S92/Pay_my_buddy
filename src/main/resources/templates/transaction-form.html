@@ -7,6 +7,10 @@
 <body>
 <div class="form-container">
     <h2>Nouvelle transaction</h2>
+    <div th:if="${error}"
+         style="color: red; margin-bottom: 1rem; font-weight: 500;">
+        <span th:text="${error}"></span>
+    </div>
     <form th:action="@{/transactions}" method="post" th:object="${transaction}">
         <label for="receiverId">Destinataire</label>
         <select id="receiverId" name="receiverId" required>
