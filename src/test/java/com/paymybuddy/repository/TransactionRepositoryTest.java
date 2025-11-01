@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,7 +49,7 @@ class TransactionRepositoryTest {
         testTransaction = new Transaction();
         testTransaction.setSender(sender);
         testTransaction.setReceiver(receiver);
-        testTransaction.setAmount(100.0);
+        testTransaction.setAmount(BigDecimal.valueOf(100.0));
         testTransaction.setDescription("Test transaction");
     }
 
@@ -120,13 +121,13 @@ class TransactionRepositoryTest {
         Transaction transaction1 = new Transaction();
         transaction1.setSender(sender);
         transaction1.setReceiver(receiver);
-        transaction1.setAmount(50.0);
+        transaction1.setAmount(BigDecimal.valueOf(50.0));
         transaction1.setDescription("Transaction 1");
 
         Transaction transaction2 = new Transaction();
         transaction2.setSender(receiver);
         transaction2.setReceiver(sender);
-        transaction2.setAmount(75.0);
+        transaction2.setAmount(BigDecimal.valueOf(75.0));
         transaction2.setDescription("Transaction 2");
 
         entityManager.persistAndFlush(transaction1);
@@ -171,7 +172,7 @@ class TransactionRepositoryTest {
         Transaction transaction2 = new Transaction();
         transaction2.setSender(sender);
         transaction2.setReceiver(receiver);
-        transaction2.setAmount(200.0);
+        transaction2.setAmount(BigDecimal.valueOf(200.0));
         transaction2.setDescription("Second transaction");
 
         entityManager.persistAndFlush(testTransaction);
@@ -187,9 +188,9 @@ class TransactionRepositoryTest {
      */
     @Test
     void testTransactionWithZeroAmount() {
-        testTransaction.setAmount(0.0);
+        testTransaction.setAmount(BigDecimal.valueOf(0.0));
         Transaction savedTransaction = transactionRepository.save(testTransaction);
 
-        assertEquals(0.0, savedTransaction.getAmount());
+        assertEquals(BigDecimal.valueOf(0.0), savedTransaction.getAmount());
     }
 }

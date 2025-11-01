@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -58,7 +59,7 @@ class TransactionControllerTest {
         testTransaction.setId(1);
         testTransaction.setSender(sender);
         testTransaction.setReceiver(receiver);
-        testTransaction.setAmount(100.0);
+        testTransaction.setAmount(BigDecimal.valueOf(100.0));
         testTransaction.setDescription("Test transaction");
     }
 
@@ -92,7 +93,7 @@ class TransactionControllerTest {
         transaction2.setId(2);
         transaction2.setSender(receiver);
         transaction2.setReceiver(sender);
-        transaction2.setAmount(50.0);
+        transaction2.setAmount(BigDecimal.valueOf(50.0));
         transaction2.setDescription("Second transaction");
 
         List<Transaction> transactions = Arrays.asList(testTransaction, transaction2);
@@ -138,7 +139,7 @@ class TransactionControllerTest {
     @Test
     @WithMockUser
     void testCreateTransactionWithNegativeAmount() throws Exception {
-        testTransaction.setAmount(-50.0);
+        testTransaction.setAmount(BigDecimal.valueOf(-50.0));
         when(transactionService.createTransaction(any(Transaction.class))).thenReturn(testTransaction);
 
         mockMvc.perform(post("/api/transactions")

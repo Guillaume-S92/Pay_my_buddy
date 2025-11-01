@@ -2,6 +2,9 @@ package com.paymybuddy.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.math.BigDecimal;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -29,23 +32,26 @@ class TransactionTest {
         assertNull(transaction.getId());
         assertNull(transaction.getSender());
         assertNull(transaction.getReceiver());
-        assertEquals(0.0, transaction.getAmount());
+        assertEquals(BigDecimal.ZERO, transaction.getAmount());
         assertNull(transaction.getDescription());
     }
+
 
     /**
      * Test de création d'une transaction avec le constructeur complet
      */
     @Test
     void testParameterizedConstructor() {
-        Transaction transactionWithParams = new Transaction(1, sender, receiver, 100.0, "Test transaction");
+        BigDecimal amount = BigDecimal.valueOf(100.0);
+        Transaction transactionWithParams = new Transaction(1, sender, receiver, amount, "Test transaction");
 
         assertEquals(1, transactionWithParams.getId());
         assertEquals(sender, transactionWithParams.getSender());
         assertEquals(receiver, transactionWithParams.getReceiver());
-        assertEquals(100.0, transactionWithParams.getAmount());
+        assertEquals(amount, transactionWithParams.getAmount());
         assertEquals("Test transaction", transactionWithParams.getDescription());
     }
+
 
     /**
      * Test des setters et getters pour l'ID
@@ -79,10 +85,11 @@ class TransactionTest {
      */
     @Test
     void testAmountSetterAndGetter() {
-        double amount = 250.50;
+        BigDecimal amount = BigDecimal.valueOf(250.50);
         transaction.setAmount(amount);
         assertEquals(amount, transaction.getAmount());
     }
+
 
     /**
      * Test des setters et getters pour la description
@@ -102,13 +109,13 @@ class TransactionTest {
         transaction.setId(3);
         transaction.setSender(sender);
         transaction.setReceiver(receiver);
-        transaction.setAmount(500.0);
+        transaction.setAmount(BigDecimal.valueOf(500.0));
         transaction.setDescription("Updated description");
 
         assertEquals(3, transaction.getId());
         assertEquals(sender, transaction.getSender());
         assertEquals(receiver, transaction.getReceiver());
-        assertEquals(500.0, transaction.getAmount());
+        assertEquals(BigDecimal.valueOf(500.0), transaction.getAmount());
         assertEquals("Updated description", transaction.getDescription());
     }
 
@@ -117,8 +124,8 @@ class TransactionTest {
      */
     @Test
     void testNegativeAmount() {
-        transaction.setAmount(-100.0);
-        assertEquals(-100.0, transaction.getAmount());
+        transaction.setAmount(BigDecimal.valueOf(-100.0));
+        assertEquals(BigDecimal.valueOf(-100.0), transaction.getAmount());
     }
 
     /**

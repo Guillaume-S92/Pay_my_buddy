@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -54,7 +55,7 @@ class TransactionServiceTest {
         testTransaction.setId(1);
         testTransaction.setSender(sender);
         testTransaction.setReceiver(receiver);
-        testTransaction.setAmount(100.0);
+        testTransaction.setAmount(BigDecimal.valueOf(100.0));
         testTransaction.setDescription("Test transaction");
     }
 

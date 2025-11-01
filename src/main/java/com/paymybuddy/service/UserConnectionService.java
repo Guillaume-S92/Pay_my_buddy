@@ -25,12 +25,14 @@ public class UserConnectionService {
         return userConnectionRepository.save(connection);
     }
 
+    //Récupère tous les amis d’un utilisateur
     public List<UserConnection> getConnectionsByUser(Integer userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         return userConnectionRepository.findByUser(user);
     }
 
+    //Récupère tous les utilisateurs qui ont ajouté ce user comme ami
     public List<UserConnection> getConnectionsByConnection(Integer connectionId) {
         User user = userRepository.findById(connectionId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
